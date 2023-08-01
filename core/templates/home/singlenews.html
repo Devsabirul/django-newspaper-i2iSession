@@ -1,0 +1,353 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}News List{% endblock title %}
+{% block account %}
+{% if is_logged_in == True %}
+  <li class="nav-item border_">
+    <a href="/dashboard" class="nav-link">Dashboard</a>
+  </li>
+  <li class="nav-item">
+    <a href="/login/logout" >
+      <img class="w-100 logout" src="https://cdn-icons-png.flaticon.com/512/25/25376.png" alt="">
+    </a>
+  </li>
+{% else %}
+<li class="nav-item border_">
+  <a href="/login" class="nav-link">login</a>
+</li>
+{% endif %}
+{% endblock account %}
+<!--end account section -->
+<!---recent post ----->
+{% block recentpost %}
+{% for recentpost in recentpost|slice:"5" %}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="footer-border-bottom pb-2 pt-2">
+        <div class="row">
+          <div class="col-3">
+            <img
+              src="{{recentpost.thumbnails.url}}"
+              alt="thumb"
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-9">
+            <a href="/news/singlenews/{{recentpost.slug}}" class="text-white">
+            <h5 class="font-weight-600">
+              {{recentpost.title|truncatechars:55}}
+            </h5>
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock recentpost %}
+<!----End Recent post-->
+<!--categories-->
+{% block categories %}
+<div class="footer-border-bottom pb-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">News</h5>
+    <div class="count">{{totalnews}}</div>
+  </div>
+</div>
+
+<div class="footer-border-bottom pb-2 pt-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">Business</h5>
+    <div class="count">{{totalbusiness}}</div>
+  </div>
+</div>
+
+<div class="footer-border-bottom pb-2 pt-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">Sports</h5>
+    <div class="count">{{totalsport}}</div>
+  </div>
+</div>
+
+<div class="footer-border-bottom pb-2 pt-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">Arts</h5>
+    <div class="count">{{totalarts}}</div>
+  </div>
+</div>
+
+<div class="pt-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">Politics</h5>
+    <div class="count">{{totalpolitics}}</div>
+  </div>
+</div>
+{% endblock categories %}
+<!---End categories-->
+{% block flashnews %}
+  {% for flash_news in flash_news %}
+  <span>{{flash_news}}</span>
+  {% endfor %}
+{% endblock flashnews %}
+<!--end Flash News section -->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="card" data-aos="fade-up">
+        <div class="card-body">
+          <div class="row">
+            
+            <div class="col-lg-4">
+              <h2 class="mb-4 text-primary font-weight-600">
+                Latest news
+              </h2>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="border-bottom pb-4 pt-4">
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <h5 class="font-weight-600 mb-1">
+                          Ways to stay social online while in self..
+                        </h5>
+                        <p class="fs-13 text-muted mb-0">
+                          <span class="mr-2">Photo </span>10 Minutes ago
+                        </p>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="rotate-img">
+                          <img
+                            src="../assets/images/inner/inner_7.jpg"
+                            alt="banner"
+                            class="img-fluid"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="border-bottom pb-4 pt-4">
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <h5 class="font-weight-600 mb-1">
+                          Premier League players join charity..
+                        </h5>
+                        <p class="fs-13 text-muted mb-0">
+                          <span class="mr-2">Photo </span>10 Minutes ago
+                        </p>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="rotate-img">
+                          <img
+                            src="../assets/images/inner/inner_8.jpg"
+                            alt="banner"
+                            class="img-fluid"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="pt-4">
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <h5 class="font-weight-600 mb-1">
+                          UK Athletics board changed stance on..
+                        </h5>
+                        <p class="fs-13 text-muted mb-0">
+                          <span class="mr-2">Photo </span>10 Minutes ago
+                        </p>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="rotate-img">
+                          <img
+                            src="../assets/images/inner/inner_9.jpg"
+                            alt="banner"
+                            class="img-fluid"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="trending">
+                <h2 class="mb-4 text-primary font-weight-600">
+                  Trending
+                </h2>
+                <div class="mb-4">
+                  <div class="rotate-img">
+                    <img
+                      src="../assets/images/inner/inner_10.jpg"
+                      alt="banner"
+                      class="img-fluid"
+                    />
+                  </div>
+                  <h3 class="mt-3 font-weight-600">
+                    Virus Kills Member Of Advising Iran’s Supreme
+                  </h3>
+                  <p class="fs-13 text-muted mb-0">
+                    <span class="mr-2">Photo </span>10 Minutes ago
+                  </p>
+                </div>
+                <div class="mb-4">
+                  <div class="rotate-img">
+                    <img
+                      src="../assets/images/inner/inner_11.jpg"
+                      alt="banner"
+                      class="img-fluid"
+                    />
+                  </div>
+                  <h3 class="mt-3 font-weight-600">
+                    Virus Kills Member Of Advising Iran’s Supreme
+                  </h3>
+                  <p class="fs-13 text-muted mb-0">
+                    <span class="mr-2">Photo </span>10 Minutes ago
+                  </p>
+                </div>
+                <div class="mb-4">
+                  <div class="rotate-img">
+                    <img
+                      src="../assets/images/inner/inner_12.jpg"
+                      alt="banner"
+                      class="img-fluid"
+                    />
+                  </div>
+                  <h3 class="mt-3 font-weight-600">
+                    Virus Kills Member Of Advising Iran’s Supreme
+                  </h3>
+                  <p class="fs-13 text-muted mb-0">
+                    <span class="mr-2">Photo </span>10 Minutes ago
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% block body %}
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="col-sm-12">
+        <div class="card" data-aos="fade-up">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <h5 class="font-weight-600 mb-4">
+                  {{singlenews.category}}
+                </h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8">
+                <div>
+                  <h1 class="font-weight-600 mb-1">
+                    {{singlenews.title}}
+                  </h1>
+                  <p class="fs-13 text-muted mb-0">
+                    <span class="mr-2">Photo </span>{{singlenews.date}}
+                  </p>
+                  <div class="">
+                    <img
+                      src="{{singlenews.thumbnails.url}}"
+                      alt="banner"
+                      class="img-fluid mt-4 mb-4"
+                    />
+                  </div>
+                  <p class="mb-4 fs-15">
+                    {{singlenews.description|safe}}
+                  </p>
+                </div>
+                <div class="d-lg-flex mb-3">
+                  
+                  <span class="fs-16 font-weight-600 mr-2 mb-1"
+                    >Tags</span
+                  >
+                  {% for tag in tags %}
+                    <span class="badge badge-outline-dark mr-2 mb-1"
+                      >{{tag}}</span
+                    >
+                  {% endfor %}
+                  
+                </div>
+                    
+              </div>
+              <div class="col-lg-4">
+                <h2 class="mb-4 text-primary font-weight-600">
+                  Latest news
+                </h2>
+              {% for news in news %}
+                {% if news.latestnews == True %}
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="border-bottom pb-4 pt-4">
+                        <div class="row">
+                          <div class="col-8 col-sm-8">
+                            <a href="/news/singlenews/{{news.slug}}" class="link_" style="color:black;">
+                            <h5 class="font-weight-600 mb-1">
+                              {{ news.title|truncatechars:35 }}
+                            </h5>
+                          </a>
+                            <p class="fs-13 text-muted mb-0">
+                              <span class="mr-2">Photo </span>{{news.date}}
+                            </p>
+                          </div>
+                          <div class="col-4 col-sm-4">
+                            <div class="">
+                              <img
+                                src="{{news.thumbnails.url}}"
+                                alt="banner"
+                                class="img-fluid h_"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% else %}
+                {% endif %}
+              {% endfor %}
+                <div class="trending">
+                  <h2 class="mb-4 text-primary font-weight-600">
+                    Trending
+                  </h2>
+                  {% for news in news %}
+                    {% if news.trending == True %}
+                        <div class="mb-4">
+                        <div class="">
+                          <img
+                            src="{{news.thumbnails.url}}"
+                            alt="banner"
+                            class="img-fluid"
+                          />
+                        </div>
+                          <a href="/news/singlenews/{{news.slug}}" class="link_" style="color:black;">
+                        <h3 class="mt-3 font-weight-600">
+                          {{ news.title|truncatechars:35 }}
+                        </h3>
+                      </a>
+                        <p class="fs-13 text-muted mb-0">
+                          <span class="mr-2">Photo </span>{{news.date}}
+                        </p>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock body %}

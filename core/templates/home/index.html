@@ -1,0 +1,357 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+Home | SHISA News paper
+{% endblock title %}
+{% block account %}
+{% if is_logged_in == True %}
+<li class="nav-item border_">
+  <a href="/dashboard" class="nav-link">Dashboard</a>
+</li>
+<li class="nav-item">
+  <a href="/login/logout">
+    <img class="w-100 logout" src="https://cdn-icons-png.flaticon.com/512/25/25376.png" alt="">
+  </a>
+</li>
+{% else %}
+<li class="nav-item border_">
+  <a href="/login" class="nav-link">login</a>
+</li>
+{% endif %}
+{% endblock account %}
+<!--end account section -->
+<!---recent post ----->
+{% block recentpost %}
+{% for recentpost in recentpost|slice:"5" %}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="footer-border-bottom pb-2 pt-2">
+        <div class="row">
+          <div class="col-3">
+            <img
+              src="{{recentpost.thumbnails.url}}"
+              alt="thumb"
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-9">
+            <a href="/news/singlenews/{{recentpost.slug}}" class="text-white">
+            <h5 class="font-weight-600">
+              {{recentpost.title|truncatechars:55}}
+            </h5>
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock recentpost %}
+<!----End Recent post-->
+<!--categories-->
+{% block categories %}
+<div class="footer-border-bottom pb-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">News</h5>
+    <div class="count">{{totalnews}}</div>
+  </div>
+</div>
+
+<div class="footer-border-bottom pb-2 pt-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">Business</h5>
+    <div class="count">{{totalbusiness}}</div>
+  </div>
+</div>
+
+<div class="footer-border-bottom pb-2 pt-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">Sports</h5>
+    <div class="count">{{totalsport}}</div>
+  </div>
+</div>
+
+<div class="footer-border-bottom pb-2 pt-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">Arts</h5>
+    <div class="count">{{totalarts}}</div>
+  </div>
+</div>
+
+<div class="pt-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 font-weight-600">Politics</h5>
+    <div class="count">{{totalpolitics}}</div>
+  </div>
+</div>
+{% endblock categories %}
+<!---End categories-->
+{% block flashnews %}
+{% for flash_news in flash_news %}
+<span>{{flash_news}}</span>
+{% endfor %}
+{% endblock flashnews %}
+<!--end Flash News section -->
+{% block body %}
+<div class="content-wrapper">
+  <div class="container">
+    <div class="row" data-aos="fade-up">
+
+      <div class="col-xl-8 stretch-card grid-margin">
+        <div id="global_news" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" id="carousel-inner">
+            {% for news in news %}
+            {% if news.globalnews == True %}
+            <div class="carousel-item">
+              <div class="position-relative">
+                <img src="{{news.thumbnails.url}}" alt="banner" class="img-fluid" />
+                <div class="banner-content">
+                  <div class="badge badge-danger fs-12 font-weight-bold mb-3">
+                    global news
+                  </div>
+                  <a href="news/singlenews/{{news.slug}}" class="text-white link_">
+                    <h1 class="mb-2">
+                      {{news.title}}
+                    </h1>
+                  </a>
+                  <div class="fs-12">
+                    <span class="mr-2">Photo </span>{{news.date}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+          </div>
+          <a class="carousel-control-prev" href="#global_news" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#global_news" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+
+      <div class="col-xl-4 stretch-card grid-margin">
+        <div class="card bg-dark text-white">
+          <h2 class="mt-3 ml-4 pl-2">Latest news</h2>
+          <div class="card-body pt-0" id="latest_news">
+            {% for news in news %}
+            {% if news.latestnews == True %}
+            <div class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
+              <div class="pr-3">
+                <a href="news/singlenews/{{news.slug}}" class="text-white link_">
+                  <h5>{{news.title}}</h5>
+                </a>
+                <div class="fs-12">
+                  <span class="mr-2">Photo </span>{{news.date}}
+                </div>
+              </div>
+              <div class="rotate-img">
+                <img src="{{news.thumbnails.url}}" alt="thumb" class="img-fluid img-lg" />
+              </div>
+            </div>
+            {% else %}
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" data-aos="fade-up">
+      <div class="col-lg-3 stretch-card grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h2>Category</h2>
+            <ul class="vertical-menu">
+              {% for uCategory in uCategory %}
+                <li><a href="#">{{uCategory}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 stretch-card grid-margin">
+        <div class="card">
+          <div class="card-body">
+            {% for news in news %}
+            <div class="row">
+              <div class="col-sm-4 grid-margin">
+                <div class="position-relative">
+                  <div class="">
+                    <img src="{{news.thumbnails.url}}" alt="thumb" class="img-fluid" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-8  grid-margin">
+                <a href="news/singlenews/{{news.slug}}" class="link_">
+                  <h2 style="color:black;" class="mb-2 font-weight-600">
+                    {{ news.title|truncatechars:35 }}
+                  </h2>
+                </a>
+                <div class="fs-13 mb-2">
+                  <span class="mr-2">Photo </span>{{news.date}}
+                </div>
+                <p class="mb-0">
+                  {{news.description|truncatechars:170 | safe}}
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" data-aos="fade-up">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="card-title">
+                  Sport light
+                </div>
+                <div class="row">
+                  <div class="col-xl-6 col-lg-8 col-sm-6">
+                    {% if sport_news|length > 0 %}
+                    {% for news in sport_news|slice:"3" %}
+                    <div id="sport_wrap" class="mb-3">
+                      <div class="">
+                        <img src="{{news.thumbnails.url}}" alt="thumb" class="img-fluid" />
+                      </div>
+                      <a href="news/singlenews/{{news.slug}}" class="link_">
+                      <h2 class="mt-3 text-primary mb-2">
+                        {{ news.title|truncatechars:20 }}
+                      </h2>
+                    </a>
+                      <p class="fs-13 mb-1 text-muted">
+                        <span class="mr-2">Photo </span>{{news.date}}
+                      </p>
+                      <div class="description_ mb-3">
+                        <p class="my-3 fs-15">
+                          {{news.description|safe}}
+                        </p>
+                      </div>
+                      <a href="/news/singlenews/{{news.slug}}" class="font-weight-600 fs-16 text-dark">Read more</a>
+                    </div>
+                    {% endfor %}
+                    <hr>
+                    {% else %}
+                    <p>Sport news not available</p>
+                    {% endif %}
+
+                  </div>
+                  <div class="col-xl-6 col-lg-4 col-sm-6">
+                    {% if newssport_|length > 0 %}
+                    {% for sport_news in newssport_|slice:"1:6" %}
+                    <div class="border-bottom test pb-3 mb-3">
+                      <a style="color:black;" href="/news/singlenews/{{sport_news.slug}}">
+                        <h3 class="font-weight-600 mb-0">
+                          {{ sport_news.title|truncatechars:20 }}
+                        </h3>
+                      </a>
+                      <p class="fs-13 text-muted mb-0">
+                        <span class="mr-2">Photo </span>{{sport_news.date}}
+                      </p>
+                      <div class="sport_description_">
+                        <p class="mb-0">
+                          {{sport_news.description|safe}}
+                        </p>
+                      </div>
+
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p>News not available </p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="card-title">
+                      Sport light
+                    </div>
+                    {% for sportnews in newssport_|slice:"4" %}
+                      <div class="border-bottom pb-3">
+                        <div class="">
+                          <img src="{{sportnews.thumbnails.url}}" alt="thumb" class="img-fluid" />
+                        </div>
+                        <a href="news/singlenews/{{sportnews.slug}}" style="color:black;">
+                        <p class="fs-16 font-weight-600 mb-0 mt-3">
+                          {{ sportnews.title|truncatechars:20 }}
+                        </p>
+                      </a>
+                        <p class="fs-13 text-muted mb-0">
+                          <span class="mr-2">Photo </span>{{sportnews.date}}
+                        </p>
+                      </div>
+                    {% endfor %}
+                    
+
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="card-title">
+                      Celebrity news
+                    </div>
+                    {% for celebrity in celebrity|slice:"7" %}
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="border-bottom pb-3">
+                              <div class="row">
+                                <div class="col-sm-5 pr-2">
+                                  <div class="">
+                                    <img src="{{celebrity.thumbnails.url}}" alt="thumb"
+                                      class="img-fluid w-100" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-7 pl-2">
+                                  <a style="color:black;" href="/news/singlenews/{{celebrity.slug}}">
+                                  <p class="fs-16 font-weight-600 mb-0">
+                                    {{ celebrity.title|truncatechars:15 }}
+                                  </p>
+                                </a>
+                                  <p class="fs-13 text-muted mb-0">
+                                    <span class="mr-2">Photo </span>{{celebrity.date}}
+                                  </p>
+                                  <div class="celebrity">
+                                     <p class="mb-0 fs-13">
+                                    {{celebrity.description|safe}}
+                                  </p>
+                                  </div>
+                                 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    {% endfor %}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let carousel_inner = document.getElementById('carousel-inner');
+  carousel_inner.firstElementChild.classList.add("active");
+
+</script>
+
+{% endblock body %}

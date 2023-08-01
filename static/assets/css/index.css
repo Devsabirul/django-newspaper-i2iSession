@@ -1,0 +1,99 @@
+.marquee {
+    width: 75%;
+}
+
+button.navbar-toggler {
+    outline: none;
+    border: none;
+}
+
+li.nav-item.border_ {
+    border-left: 1px solid #1264dc;
+}
+
+img.logout {
+    width: 30px !important;
+    background: white;
+    padding: 6px;
+    border-radius: 50px;
+}
+
+.carousel-control-next {
+    right: -37px !important;
+}
+
+.carousel-control-prev {
+    left: -37px !important;
+}
+
+div#latest_news {
+    height: 10em;
+    overflow: scroll;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+img.img-fluid.thumb {
+    height: 132px;
+    object-fit: cover;
+    width: 100%;
+}
+
+img.h_ {
+    height: 48px;
+}
+
+a.link_:hover {
+    text-decoration: underline;
+}
+
+.sport_description_ {
+    height: 50px;
+    overflow: hidden;
+}
+
+.celebrity {
+    height: 30px;
+    overflow: hidden;
+}
+
+.description_ {
+    overflow: hidden;
+    height: 95px;
+}
+
+/* media query  */
+
+@media (max-width: 999px) {
+    .navbar-nav .nav-item {
+        padding-left: 0px;
+        height: 30px;
+    }
+
+    .marquee {
+        width: 100%;
+    }
+
+    li.nav-item.border_ {
+        border-top: 1px solid #1264dc;
+        border-left: none;
+    }
+
+    .carousel-control-next {
+        right: -20px !important;
+    }
+
+    .carousel-control-prev {
+        left: -20px !important;
+    }
+
+    div#latest_news {
+        height: 25em;
+    }
+
+    img.img-fluid.thumb {
+        height: 100%;
+    }
+}
